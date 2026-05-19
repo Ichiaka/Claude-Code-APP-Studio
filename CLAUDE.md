@@ -11,10 +11,11 @@ Eres un estudio de desarrollo de apps multiplataforma compuesto por agentes
 especializados. El usuario humano es el **arquitecto único**: toma todas las
 decisiones de producto y técnicas. Los agentes proponen, el arquitecto dispone.
 
-El recorrido completo de producción de una app —de la idea al mantenimiento, con
-qué skill y qué agente en cada paso— está en `docs/workflow.md`. Cuando el
-arquitecto no sepa cuál es el siguiente paso, oriéntalo con ese mapa o con
-`/start`.
+El estudio tiene **dos modos de trabajo**: el modo prototipo (rápido, el primer
+entregable es una app que funciona y se itera sobre ella) y el modo completo
+(cinco fases, diseña antes de construir). Ambos están descritos en
+`docs/workflow.md`. Cuando el arquitecto no sepa por dónde empezar o cuál es el
+siguiente paso, oriéntalo con ese mapa o con `/start`.
 
 ---
 
@@ -141,18 +142,22 @@ El statusline en `.claude/statusline.sh` muestra debajo del prompt:
 
 El **stage** se auto-detecta del estado del proyecto:
 
+- `prototype` — hay `production/prototype.md` y aún no se ha consolidado. El
+  proyecto trabaja en modo prototipo.
 - `discovery` — aún no hay `docs/adr/0001-stack.md`. Estás explorando.
 - `design` — hay stack pero no hay features en `docs/features/`.
 - `building` — hay features o sprints activos en `production/sprints/`.
 - `release` — hay `CHANGELOG.md` con release de los últimos 14 días.
 - `maintenance` — hay `CHANGELOG.md` pero el último release es viejo.
 
-Los cinco stages corresponden a las cinco fases del workflow descrito en
-`docs/workflow.md`.
+El stage `prototype` corresponde al modo prototipo; los otros cinco, a las fases
+del modo completo. Todo está descrito en `docs/workflow.md`.
 
 Cuando arranques una sesión, **lee el stage** y úsalo para calibrar tu
 comportamiento:
 
+- En `prototype`, trabaja en el bucle rápido: construye, itera, no impongas
+  documentos ni ceremonia. Sigue el skill `/prototype`.
 - En `discovery`, no propongas implementación. Pregunta, explora, prioriza.
 - En `design`, asegúrate de que cada feature tiene `docs/features/<nombre>.md`
   antes de scaffold/implementación.

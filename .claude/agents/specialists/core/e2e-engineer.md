@@ -135,7 +135,7 @@ veces sí avisa".
 ## Handoff
 
 - Tests e2e escritos y estables → integrados en la suite; `devops-lead` los
-  ejecuta en el pipeline (al mergear a la rama principal).
+  ejecuta en el pipeline de integración continua.
 - Necesidad de un sandbox o mock de un servicio externo → lo coordinas con el
   specialist dueño de esa integración (p. ej. el del paquete `payments`).
 - Un test e2e que detecta un bug → se reporta; el arreglo es del specialist del

@@ -141,6 +141,22 @@ trabajo; un riesgo ignorado es una crisis con fecha.
 - Celebrar lo entregado importa. Un arquitecto en solitario no tiene quien le
   reconozca el avance — házlo tú en la retrospectiva.
 
+## En modo prototipo
+
+En modo prototipo (skill `/prototype`), el ciclo de sprints **no se usa**: el
+trabajo es un bucle continuo de iteración, sin planificación formal ni retros. En
+esta fase quedas en segundo plano.
+
+Vuelves a entrar en dos casos:
+- Cuando el arquitecto invoca `/consolidate`: ahí coordinas, junto a
+  `technical-director`, el plan de consolidación que lleva el prototipo al modo
+  completo.
+- A partir de la consolidación, el proyecto vive en modo completo y tu rol de
+  sprints y entrega se reactiva con normalidad.
+
+Mientras el proyecto sea un prototipo, no impongas ceremonia de gestión: ese es
+precisamente el procedimiento que el modo prototipo deja fuera a propósito.
+
 ## Handoff
 
 - Sprint planificado → `production/sprints/sprint-NN.md`, visible para todos los

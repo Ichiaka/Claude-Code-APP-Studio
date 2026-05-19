@@ -6,7 +6,7 @@ Descarga o copia este template a la carpeta de tu proyecto:
 
 ```bash
 # por ejemplo, clonándolo:
-git clone https://github.com/Ichiaka/Claude-Code-APP-Studio.git mi-app
+git clone https://github.com/Ichiaka/claude-code-app-studio.git mi-app
 cd mi-app
 claude    # abre Claude Code
 ```
@@ -21,13 +21,18 @@ interfiere con ello ni lo gestiona por ti.
 /start
 ```
 
-Te preguntará dónde estás (idea vaga, concepto claro, código existente) y te
-guiará al skill adecuado.
+Te ayudará a elegir el modo de trabajo y te situará en el paso adecuado.
 
-## 3. El workflow completo
+## 3. Los dos modos de trabajo
 
-El recorrido de principio a fin —de la idea a una app publicada y mantenida—
-está descrito en detalle en **`docs/workflow.md`**. En resumen, las cinco fases:
+El estudio tiene dos modos, y eliges según el proyecto:
+
+**Modo prototipo** — el camino rápido. Se arranca con `/prototype`: el primer
+entregable es una app que funciona, y se itera sobre ella (miras, pides un
+cambio, se aplica, repites). Sin fases ni ceremonia. Para prototipos, apps
+pequeñas o validar una idea cuanto antes.
+
+**Modo completo** — el camino con proceso, en cinco fases:
 
 1. **Discovery** — `/brainstorm-app`, `/define-mvp`.
 2. **Design** — `/choose-stack`, `/package-add`, `/architect-feature`.
@@ -35,6 +40,10 @@ está descrito en detalle en **`docs/workflow.md`**. En resumen, las cinco fases
    `/code-review`, `/retrospective`.
 4. **Release** — `/security-review`, `/release-checklist`, `/changelog`.
 5. **Maintenance** — corrección de bugs y nuevos ciclos de mejora.
+
+Un prototipo puede pasar al modo completo con `/consolidate` cuando decidas que
+el proyecto va en serio. El recorrido detallado de ambos modos está en
+**`docs/workflow.md`**.
 
 ## 4. Activar un paquete opcional
 

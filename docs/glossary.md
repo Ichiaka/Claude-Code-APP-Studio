@@ -112,8 +112,9 @@ algunos de integración, pocos e2e.
 **Test e2e** (end-to-end) — un test que recorre un flujo completo de usuario
 integrando todas las piezas. Caro y más frágil; se reserva para flujos críticos.
 
-**Gate de calidad** — el conjunto de condiciones que se exigen antes de mergear o
-de liberar. QA tiene autoridad para bloquear un release que no lo pase.
+**Gate de calidad** — el conjunto de condiciones que se exigen antes de dar una
+feature por terminada o antes de liberar. QA tiene autoridad para bloquear un
+release que no lo pase.
 
 **Flaky test** — un test que falla de forma intermitente sin que haya un bug
 real. Erosiona la confianza en la suite; se arregla o se borra.

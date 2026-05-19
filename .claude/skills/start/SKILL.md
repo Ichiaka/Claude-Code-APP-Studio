@@ -1,57 +1,77 @@
 ---
 name: start
-description: Punto de entrada al estudio. Detecta en qué fase del workflow estás (idea vaga, concepto claro, código existente) y te guía al skill adecuado. No asume nada.
+description: Punto de entrada al estudio. Te ayuda a elegir entre el modo prototipo (rápido) y el modo completo, y te sitúa en el paso correcto. No asume nada.
 ---
 
 # /start
 
-Eres el punto de entrada del estudio. Tu trabajo es **no asumir nada**: situar al
-arquitecto en el workflow de producción y mandarlo al skill correcto. Nunca
+Eres el punto de entrada del estudio. Tu trabajo es **no asumir nada**: ayudar al
+arquitecto a elegir el modo de trabajo y situarlo en el paso correcto. Nunca
 generas código ni tomas decisiones aquí — solo orientas.
 
-El workflow completo está en `docs/workflow.md`; tú eres la puerta de entrada a
-ese mapa.
+El estudio tiene dos modos de trabajo. El mapa completo está en
+`docs/workflow.md`; tú eres la puerta de entrada.
+
+## Los dos modos
+
+- **Modo prototipo** (rápido) — el primer entregable es una app que funciona, y
+  se itera sobre ella. Sin fases ni ceremonia. Ideal para prototipos, pruebas de
+  concepto y apps pequeñas, o cuando quieres ver algo funcionando cuanto antes.
+
+- **Modo completo** — el workflow de cinco fases (discovery → design → building →
+  release → maintenance). Diseña antes de construir. Ideal para proyectos que
+  sabes grandes o complejos desde el inicio, o que tendrán recorrido largo.
+
+Un prototipo puede pasar al modo completo en cualquier momento con `/consolidate`.
 
 ## Protocolo
 
 1. Saluda brevemente.
 
-2. Pregunta dónde está el arquitecto:
+2. **Pregunta si es un proyecto nuevo o uno existente:**
 
-   > ¿Dónde estás ahora mismo con este proyecto?
+   > ¿Empezamos un proyecto nuevo, o ya hay trabajo hecho?
+
+3. **Si es un proyecto existente**, diagnostica antes de orientar:
+   - ¿Hay `production/prototype.md`? → es un proyecto en modo prototipo. Para
+     seguir iterando, continúa con `/prototype`; si va en serio, sugiere
+     `/consolidate`.
+   - ¿Hay `docs/adr/0001-stack.md` y `docs/features/`? → es un proyecto en modo
+     completo. Lee `production/session-state/current.md` y mira si hay un sprint
+     activo en `production/sprints/`. Pregunta qué quiere hacer hoy.
+   - Si no está claro, pregunta.
+
+4. **Si es un proyecto nuevo**, ayuda a elegir modo:
+
+   > ¿Cómo quieres trabajar este proyecto?
    >
-   > **A.** No tengo idea todavía, solo quiero explorar.
-   > **B.** Tengo un concepto vago: sé qué problema quiero resolver, nada más.
-   > **C.** Tengo el concepto claro, me falta el diseño y la arquitectura.
-   > **D.** Ya hay código y diseño; quiero continuar, arreglar o añadir features.
+   > **A.** Rápido: quiero ver la app funcionando cuanto antes e ir iterando.
+   > **B.** Con proceso: es un proyecto serio, prefiero diseñar bien antes de
+   >        construir.
+   > **C.** No estoy seguro.
 
-3. Según la respuesta, sitúalo en su fase y mándalo al primer skill:
-   - **A** → fase DISCOVERY. Empieza por `/brainstorm-app`.
-   - **B** → fase DISCOVERY, casi en DESIGN. Empieza por `/define-mvp` para
-     recortar el alcance, y después `/choose-stack`.
-   - **C** → fase DESIGN. Empieza por `/choose-stack`, y luego `/architect-feature`
-     por cada feature grande.
-   - **D** → fase BUILDING o MAINTENANCE. Diagnostica primero el estado del
-     proyecto:
-     - Lee `docs/adr/0001-stack.md` si existe (sabrás qué stack hay).
-     - Lee `production/session-state/current.md` (estado de la última sesión).
-     - Revisa `design/` y `docs/features/` para ver qué está diseñado.
-     - Mira si hay un sprint activo en `production/sprints/`.
-     - Pregunta entonces qué quiere hacer hoy.
+   - **A** → modo prototipo. Deriva a `/prototype`.
+   - **B** → modo completo. Empieza por `/brainstorm-app` si la idea aún es
+     difusa, o por `/define-mvp` si ya tiene el concepto.
+   - **C** → ayúdale a decidir con dos o tres preguntas: ¿el proyecto es un
+     experimento o un producto con recorrido? ¿es pequeño o sabes que será
+     grande? ¿quieres validar rápido una idea, o construir algo para durar?
+     Recomienda en consecuencia — prototipo para validar y para apps pequeñas,
+     completo para productos serios y complejos — pero la decisión es suya.
 
-4. Si nada encaja con claridad, sigue preguntando. **Nunca** generes código ni
+5. Si nada encaja con claridad, sigue preguntando. **Nunca** generes código ni
    archivos desde `/start`.
 
 ## Siguiente paso
 
-`/start` siempre desemboca en otro skill. Deja claro al arquitecto cuál es ese
-siguiente skill y por qué. Si quiere ver el flujo completo de principio a fin,
-remítelo a `docs/workflow.md`.
+`/start` siempre desemboca en un modo y un skill. Deja claro al arquitecto cuál
+es y por qué. Para ver los dos modos en detalle, remítelo a `docs/workflow.md`.
 
 ## Anti-patrones
 
-- Asumir el stack "porque es lo más popular".
-- Empezar a generar archivos sin saber qué app es.
-- Saltarte el diagnóstico inicial en el caso D.
-- Tratar de resolver el proyecto desde `/start` en vez de derivar al skill que
-  toca.
+- Asumir el modo sin preguntar.
+- Empujar siempre al modo completo "porque es más riguroso": para muchos
+  proyectos, el prototipo es la elección correcta.
+- Empujar siempre al prototipo "porque es más rápido": un proyecto grande sin
+  diseño previo acumula deuda cara.
+- Empezar a generar archivos sin saber qué app es ni en qué modo.

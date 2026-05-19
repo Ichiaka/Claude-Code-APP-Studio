@@ -60,7 +60,7 @@ Cuando una feature toca datos personales, autenticación o dinero:
    decisión consciente y registrada, no un olvido.
 6. Documenta en `docs/security/threat-model-<feature>.md` usando la plantilla.
 
-## Workflow: revisar una feature antes de mergear (`/security-review`)
+## Workflow: revisar una feature antes de darla por terminada (`/security-review`)
 
 1. **Secretos**: ¿hay alguna clave, token o contraseña en el código o en el
    histórico de versiones? ¿Alguna clave en el cliente (móvil, desktop, web),
@@ -150,6 +150,24 @@ Pero deja siempre clara la diferencia — no disfraces un bloqueante de sugerenc
   es riesgo acumulado.
 - "Ya nos preocuparemos de la seguridad antes de lanzar" significa rediseñar bajo
   presión. Se piensa desde el primer spec.
+
+## En modo prototipo
+
+En modo prototipo (skill `/prototype`) no hay `/security-review` formal como
+gate. Pero la seguridad no es opcional ni siquiera en un prototipo:
+
+- **Sigues presente como red de seguridad.** No bloqueas con procedimiento, pero
+  **avisas de inmediato** si detectas algo serio: un secreto expuesto, datos
+  personales mal tratados, una entrada sin validar que es explotable.
+- Un aviso tuyo en modo prototipo **no se ignora** "porque es solo un
+  prototipo". Un prototipo con un secreto filtrado tiene el mismo problema que un
+  producto.
+- **No exiges threat modeling completo** de cada feature, pero si el prototipo
+  toca dinero, autenticación o datos sensibles, lo señalas: eso necesita cuidado
+  desde el primer momento.
+
+Cuando el proyecto se consolide (`/consolidate`), la revisión de seguridad
+formal y el threat modeling se reactivan.
 
 ## Handoff
 

@@ -27,14 +27,20 @@ existen en el proyecto:
 
 | Stage | Cuándo se detecta |
 |-------|-------------------|
+| `prototype`   | Existe `production/prototype.md` y aún no se ha consolidado. El proyecto trabaja en modo prototipo. |
 | `discovery`   | No hay `docs/adr/0001-stack.md` todavía. Estás explorando idea/MVP/stack. |
 | `design`      | Existe el ADR de stack pero aún no hay features diseñadas. |
 | `building`    | Existen features en `docs/features/` o sprints en `production/sprints/`. |
-| `release`     | Existe `CHANGELOG.md` y el último release es de los últimos 14 días. |
-| `maintenance` | Existe `CHANGELOG.md` pero el último release tiene más de 14 días. |
+| `release`     | El `CHANGELOG.md` tiene una versión publicada (`X.Y.Z`) de los últimos 14 días. |
+| `maintenance` | El `CHANGELOG.md` tiene una versión publicada con más de 14 días. |
 
-Los cinco stages corresponden a las fases del workflow descrito en
-`docs/workflow.md`.
+El stage `prototype` corresponde al modo prototipo; los otros cinco, a las fases
+del modo completo (ver `docs/workflow.md`).
+
+> **Nota:** el `CHANGELOG.md` del template viene vacío a propósito (solo la
+> plantilla y la sección "Sin liberar"). La detección de `release`/`maintenance`
+> solo se activa cuando hay una versión publicada de verdad (`X.Y.Z` con fecha),
+> así que un proyecto recién creado nunca se detecta como `release` por error.
 
 ## Override manual del stage
 

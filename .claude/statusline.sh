@@ -7,6 +7,7 @@
 # muestra debajo del prompt.
 #
 # Stages soportados (en orden, auto-detectados a partir de los artefactos):
+#   prototype   → existe production/prototype.md y aún no se ha consolidado
 #   discovery   → no hay ADR de stack todavía
 #   design      → hay stack pero no hay features diseñadas
 #   building    → hay features diseñadas y/o sprints activos
@@ -45,9 +46,18 @@ detect_stage() {
     return
   fi
 
+  # Proyecto en modo prototipo (y aún no consolidado a modo completo)
+  if [ -f "$dir/production/prototype.md" ] && [ ! -f "$dir/docs/adr/0001-stack.md" ]; then
+    echo "prototype"
+    return
+  fi
+
   # CHANGELOG → release o maintenance
-  if [ -f "$dir/CHANGELOG.md" ] && grep -qE '^##[[:space:]]*\[?[0-9]+\.[0-9]+' "$dir/CHANGELOG.md" 2>/dev/null; then
-    # Si la última fecha es de los últimos 14 días → release; si no → maintenance
+  # Solo cuenta si hay una versión REAL publicada (formato SemVer X.Y.Z).
+  # Una sección "[Sin liberar]" o un CHANGELOG con solo la plantilla NO cuenta:
+  # así un proyecto recién creado no se detecta como 'release' por error.
+  if [ -f "$dir/CHANGELOG.md" ] && grep -qE '^##[[:space:]]+\[?[0-9]+\.[0-9]+\.[0-9]+\]?' "$dir/CHANGELOG.md" 2>/dev/null; then
+    # Fecha asociada a la primera versión publicada
     LAST_DATE=$(grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' "$dir/CHANGELOG.md" 2>/dev/null | head -1)
     if [ -n "$LAST_DATE" ]; then
       # Comparar con fecha actual (portátil entre macOS y Linux)
@@ -104,6 +114,7 @@ fi
 
 # === Color del stage ===
 case "$STAGE" in
+  prototype)   STAGE_COLOR=$'\033[32m' ;;  # verde
   discovery)   STAGE_COLOR=$'\033[36m' ;;  # cian
   design)      STAGE_COLOR=$'\033[34m' ;;  # azul
   building)    STAGE_COLOR=$'\033[35m' ;;  # magenta

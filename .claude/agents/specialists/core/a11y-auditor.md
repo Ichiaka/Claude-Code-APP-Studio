@@ -134,6 +134,22 @@ empeorar las cosas: un `aria-label` que contradice el texto visible, un
 - La accesibilidad que se deja "para el final" no se hace. Se verifica en cada
   feature, no en una limpieza final que nunca llega.
 
+## En modo prototipo
+
+En modo prototipo (skill `/prototype`) no hay auditoría formal de accesibilidad
+como gate. Pero la accesibilidad es más barata de cuidar desde el principio que
+de añadir después:
+
+- **Sigues presente como red de seguridad.** No bloqueas con procedimiento, pero
+  **avisas** si una pantalla del prototipo es directamente inservible para quien
+  usa teclado o lector de pantalla.
+- **No exiges la auditoría de tres fases** en cada iteración, pero sí recuerdas
+  lo esencial mientras se construye: HTML semántico, foco visible, el color no
+  como única señal. Son baratos de hacer bien desde el inicio.
+
+Cuando el proyecto se consolide (`/consolidate`), la auditoría completa de
+accesibilidad se reactiva.
+
 ## Handoff
 
 - Informe de auditoría → `design/reviews/a11y-<fecha>.md` con hallazgos,

@@ -30,20 +30,6 @@ Para apps multiplataforma: **web (PWA), móvil (iOS/Android), desktop (Windows/m
 o cualquier combinación. Pensado para **un arquitecto humano en solitario** dirigiendo
 agentes; no para pair programming clásico.
 
-## Basado en Claude Code Game Studios
-
-Este proyecto está **basado e inspirado en** [Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
-de [@Donchitos](https://github.com/Donchitos), que adapta la idea para desarrollo
-de videojuegos (49 agentes, 72 skills, soporte para Godot/Unity/Unreal).
-
-Si haces juegos, **usa el original**. Este repo adapta el mismo patrón a apps
-multiplataforma de propósito general: cambia los engines por stacks web/móvil/desktop,
-los assets por design systems y manifests de PWA, los GDDs por PRDs y ADRs. La
-filosofía de "studio hierarchy + collaborative design + path-scoped rules" es
-la misma; el dominio es distinto.
-
-Crédito al diseño original a Donchitos. Licencia MIT en ambos casos.
-
 ---
 
 ## Cómo funciona
@@ -123,21 +109,43 @@ Y dentro de Claude Code:
 /start
 ```
 
-`/start` te pregunta dónde estás (idea vaga, concepto claro, código existente) y
-te lleva al flujo adecuado.
+`/start` te ayuda a elegir el modo de trabajo y te sitúa en el paso adecuado.
 
-### El workflow completo
+### Dos modos de trabajo
 
-El recorrido de principio a fin —de la idea a una app publicada y mantenida—
-está documentado en [`docs/workflow.md`](docs/workflow.md), con qué skill y qué
-agente corresponden a cada paso. En resumen:
+El estudio no impone un único camino. Eliges según el proyecto.
 
-1. **Discovery** — `/brainstorm-app`, `/define-mvp`.
-2. **Design** — `/choose-stack`, `/package-add`, `/architect-feature`.
-3. **Building** — `/sprint-plan`, `/scaffold-feature`, implementación,
-   `/code-review`, `/retrospective`.
-4. **Release** — `/security-review`, `/release-checklist`, `/changelog`.
-5. **Maintenance** — corrección de bugs y nuevos ciclos de mejora.
+#### Modo prototipo — la opción rápida de desarrollar
+
+El camino rápido sigue un flujo de tres pasos:
+
+```
+   PROTOTIPAR  →  DESARROLLAR  →  CONSOLIDAR
+   (algo que      (iterar sobre    (cuando va en serio,
+    funciona)      lo que hay)      darle base sólida)
+```
+
+1. **Prototipar** (`/prototype`) — describes la app y el primer entregable es
+   algo que funciona. Definición rápida de la idea, stack elegido en una
+   conversación, sin fases ni documentos.
+2. **Desarrollar** — el bucle de iteración: miras lo que hay, pides el siguiente
+   cambio, se aplica, vuelves a mirar. Sin sprints ni ceremonia.
+3. **Consolidar** (`/consolidate`) — cuando el prototipo deja de ser un
+   experimento y va en serio, este paso audita la deuda acumulada y lleva el
+   proyecto al estándar del modo completo. Lo invocas tú, cuando lo decidas.
+
+Es la vía recomendada para prototipos, apps pequeñas o para validar una idea
+cuanto antes — sin renunciar a poder darle estructura sólida más adelante.
+
+#### Modo completo — el camino con proceso
+
+Cinco fases ordenadas (discovery → design → building → release → maintenance):
+diseña antes de construir. Algo más lento al principio, pero más seguro a largo
+plazo. Ideal para proyectos que sabes serios, grandes o complejos desde el
+inicio. Se arranca con `/start` → completo.
+
+El recorrido detallado de ambos modos está en
+[`docs/workflow.md`](docs/workflow.md).
 
 ---
 
@@ -153,7 +161,7 @@ CLAUDE.md                       # Configuración maestra
     leads/                      # 7 agentes Tier 2 (Sonnet)
     specialists/                # 19 agentes Tier 3 (Sonnet)
       core/  mobile/  desktop/  pwa/  design/
-  skills/                       # 20 slash commands del núcleo
+  skills/                       # 22 slash commands del núcleo
   hooks/                        # 6 hooks automáticos (bash)
   rules/                        # 11 estándares con scope por path
   templates/                    # 12 plantillas (PRD, ADR, sprint, ...)
@@ -181,13 +189,16 @@ diseño (UI, design system, iconos).
 `db-engineer`, `auth-engineer`, `payments-engineer`, `push-engineer`,
 `i18n-engineer`, `analytics-engineer`.
 
-### Skills del núcleo (20)
+### Skills del núcleo (22)
 
-`/start` `/brainstorm-app` `/define-mvp` `/choose-stack` `/package-add`
-`/architect-feature` `/scaffold-feature` `/code-review` `/design-review`
-`/a11y-audit` `/perf-audit` `/security-review` `/release-checklist`
-`/pwa-checklist` `/changelog` `/sprint-plan` `/retrospective` `/adr-new`
-`/scope-check` `/bug-report`
+`/start` `/prototype` `/consolidate` `/brainstorm-app` `/define-mvp`
+`/choose-stack` `/package-add` `/architect-feature` `/scaffold-feature`
+`/code-review` `/design-review` `/a11y-audit` `/perf-audit` `/security-review`
+`/release-checklist` `/pwa-checklist` `/changelog` `/sprint-plan`
+`/retrospective` `/adr-new` `/scope-check` `/bug-report`
+
+`/prototype` y `/consolidate` son el modo rápido y su puente al modo completo.
+El resto pertenecen al modo completo o sirven a ambos.
 
 Cada skill indica su lugar en el workflow y cuál es el siguiente paso, de modo
 que el flujo de producción queda encadenado de principio a fin. Ver
@@ -235,23 +246,6 @@ comunes:
 
 ---
 
-## Diferencias con Claude Code Game Studios
-
-| Aspecto                | Game Studios                  | App Studio                          |
-| ---------------------- | ----------------------------- | ----------------------------------- |
-| Dominio                | Videojuegos                   | Apps multiplataforma                |
-| Engines / stacks       | Godot, Unity, Unreal          | PWA+Capacitor+Tauri, RN, Flutter... |
-| Documentos clave       | GDDs, level design            | PRDs, ADRs, feature specs           |
-| Targets                | PC/console/mobile games       | Web, iOS, Android, desktop          |
-| Skills específicos     | `/balance-check`, `/playtest` | `/pwa-checklist`, `/a11y-audit`     |
-| Pirámide de calidad    | QA + playtest                 | Tests + a11y + perf + security      |
-| Núcleo vs. opcionales  | Engines como variantes        | Backend/pagos/i18n como paquetes    |
-
-Si dudas entre los dos repos: ¿estás haciendo un juego? Game Studios. ¿Una app
-de productividad, social, herramienta, dashboard, etc.? App Studio.
-
----
-
 ## Roadmap
 
 Esto es un release temprano. Lo que viene:
@@ -281,6 +275,14 @@ Ver [CHANGELOG.md](CHANGELOG.md).
 [MIT](LICENSE). Eres libre de usarlo, modificarlo y redistribuirlo.
 
 ## Créditos
+
+Este proyecto está basado e inspirado en
+[Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
+de [@Donchitos](https://github.com/Donchitos), que aplica el patrón "studio
+hierarchy + collaborative design + path-scoped rules" al desarrollo de
+videojuegos. App Studio adapta ese mismo patrón a apps multiplataforma de
+propósito general. Si lo tuyo son los videojuegos, usa el original. Crédito al
+diseño y la filosofía originales a Donchitos.
 
 - **Diseño original** y filosofía del studio: [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios).
 - **Adaptación para apps multiplataforma**: este repositorio.
