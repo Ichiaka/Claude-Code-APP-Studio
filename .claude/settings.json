@@ -41,7 +41,10 @@
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/session-start.sh" }
+          { "type": "command", "command": ".claude/hooks/session-start.sh" },
+          { "type": "command", "command": ".claude/hooks/load-env.sh" },
+          { "type": "command", "command": ".claude/hooks/check-deps.sh" },
+          { "type": "command", "command": ".claude/hooks/dev-server.sh" }
         ]
       }
     ],

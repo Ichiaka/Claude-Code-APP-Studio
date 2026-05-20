@@ -119,12 +119,36 @@ consideran web + móvil + desktop. Esto significa:
 
 ---
 
-## Hooks y validaciones
+## Hooks, utilidades y preferencias
 
-Los hooks en `.claude/hooks/` se ejecutan automáticamente: cargan contexto al
-iniciar la sesión, lo registran al cerrarla, avisan si se escribe un secreto en
-claro y dejan traza de los subagentes invocados. No los modifiques sin avisar al
-arquitecto. Si un hook avisa de algo, **no lo ignores**: atiende el aviso.
+**Hooks** (`.claude/hooks/`) — se ejecutan automáticamente en eventos de Claude
+Code. Hay 7:
+
+- `session-start.sh` — carga contexto del proyecto al iniciar sesión.
+- `load-env.sh` — detecta variables de entorno y avisa si falta `.env.local`.
+- `check-deps.sh` — detecta dependencias sin instalar y avisa.
+- `dev-server.sh` — detecta el script de desarrollo y avisa.
+- `session-stop.sh` — registra el fin de la sesión.
+- `check-secrets.sh` — tras escribir o editar, avisa si parece haber un secreto
+  en claro.
+- `log-agent.sh` — traza de subagentes invocados.
+
+Por defecto los hooks **detectan y avisan, no ejecutan**. Si un hook avisa de
+algo, **no lo ignores**: atiende el aviso.
+
+**Utilidades** (`.claude/utils/`) — scripts de validación que no son
+automáticos; los invocan skills o el arquitecto a mano:
+
+- `validate-manifest.sh` — valida el manifest de PWA.
+- `version-sync.sh` — verifica que la versión está sincronizada entre
+  manifiestos de plataforma.
+- `build-check.sh` — ejecuta un build de prueba.
+
+**Preferencias** (`.claude/preferences.md`) — archivo donde el arquitecto
+declara una vez sus elecciones persistentes (idioma, stack favorito, BaaS
+preferido, etc.). Los agentes lo leen al iniciar sesión y lo respetan sin volver
+a preguntar. También permite activar acciones automáticas opt-in
+(`auto_install_deps`, `auto_load_env`, `auto_start_dev_server`).
 
 El estudio no incluye ninguna integración con git ni con plataformas de
 repositorio. Si tu app usa git, lo gestionas tú con normalidad; el estudio no

@@ -36,7 +36,7 @@ reversible (si algo va mal, se puede volver atrás).
 3. **Sincroniza la versión en TODOS los manifiestos.** Este es el error más
    común y más fácil de cometer: el `package.json`, la configuración de
    Capacitor/Tauri, el `build.gradle` de Android, el `Info.plist` de iOS — todos
-   deben llevar el mismo número. El hook `version-sync.sh` lo verifica; úsalo.
+   deben llevar el mismo número. La utilidad `.claude/utils/version-sync.sh` lo verifica; úsalo.
 4. **Escribe el registro de cambios ANTES de marcar la versión.** Con
    `/changelog`: repasa qué se ha hecho desde el último release, agrúpalo (Added,
    Changed, Fixed, Removed, Security) y reescríbelo en lenguaje de usuario — no

@@ -161,10 +161,12 @@ CLAUDE.md                       # Configuración maestra
     leads/                      # 7 agentes Tier 2 (Sonnet)
     specialists/                # 19 agentes Tier 3 (Sonnet)
       core/  mobile/  desktop/  pwa/  design/
-  skills/                       # 22 slash commands (del núcleo) del núcleo
-  hooks/                        # 6 hooks automáticos (bash)
+  skills/                       # 22 slash commands del núcleo
+  hooks/                        # 7 hooks automáticos (bash)
+  utils/                        # 3 utilidades (build, manifest, version)
   rules/                        # 11 estándares con scope por path
-  templates/                    # 12 plantillas (PRD, ADR, sprint, ...)
+  templates/                    # 17 plantillas (PRD, ADR, sprint, privacy...)
+  preferences.md                # Preferencias persistentes del arquitecto
 packages/                       # Paquetes opcionales
   backend-baas/  backend-custom/  payments/  push/  i18n/  analytics/  ai-features/
 design/                         # PRDs, especificaciones de features (vacío)
@@ -204,13 +206,28 @@ Cada skill indica su lugar en el workflow y cuál es el siguiente paso, de modo
 que el flujo de producción queda encadenado de principio a fin. Ver
 [`docs/workflow.md`](docs/workflow.md).
 
-### Hooks automáticos (6)
+### Hooks automáticos (7) y utilidades (3)
+
+**Hooks** — se ejecutan solos en eventos de Claude Code, en modo *detectar y
+avisar*:
 
 `session-start.sh` / `session-stop.sh` (contexto entre sesiones) ·
+`load-env.sh` (avisa si falta `.env.local`) ·
+`check-deps.sh` (avisa si faltan dependencias) ·
+`dev-server.sh` (avisa cómo arrancar el servidor de desarrollo) ·
 `check-secrets.sh` (avisa si se escribe un secreto en claro) ·
-`log-agent.sh` (traza de subagentes invocados) ·
+`log-agent.sh` (traza de subagentes invocados).
+
+**Utilidades** — scripts que invoca un skill o el arquitecto a mano:
 `validate-manifest.sh` (manifest de PWA correcto) ·
-`version-sync.sh` (versión sincronizada entre web/móvil/desktop)
+`version-sync.sh` (versión sincronizada entre web/móvil/desktop) ·
+`build-check.sh` (build de prueba para verificar que compila).
+
+**Preferencias** (`.claude/preferences.md`) — declaras una vez tus elecciones
+persistentes (idioma, stack favorito, BaaS preferido, paquetes a activar por
+defecto, convenciones) y los agentes las respetan sin volver a preguntar.
+También permite activar acciones automáticas opt-in como instalar dependencias
+o arrancar el servidor de desarrollo solas.
 
 El estudio no incluye hooks de git ni integración con plataformas de
 repositorio: git, si lo usas, lo gestionas tú.

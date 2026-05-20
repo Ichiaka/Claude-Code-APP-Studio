@@ -46,13 +46,30 @@ El modo prototipo no tiene fases. Tiene un bucle que se repite:
 Con eso basta para arrancar. No se genera PRD ni documento de MVP; la idea vive
 en `production/prototype.md`, un archivo breve que se va actualizando.
 
-### Paso 1 — Elegir el stack (rápido, pero se pregunta)
+### Paso 1 — Elegir el stack (rápido, con default)
 
-`technical-director` recomienda un stack adecuado para los targets que quieras
-(web, móvil, desktop) y **te pregunta** antes de fijarlo. No es la deliberación
-completa de `/choose-stack`: es una recomendación con su razón, y tu confirmación.
-La decisión se anota en `production/prototype.md` (no se genera un ADR formal en
-este modo; eso llega si consolidas).
+En modo prototipo, el stack no se delibera: se asume un default razonable y se
+confirma con una sola pregunta cerrada.
+
+**El default del estudio:** PWA + Capacitor + Tauri, con TypeScript y React. Es
+el más versátil para un desarrollador en solitario — una sola base de código
+cubre web, móvil (iOS/Android vía Capacitor) y desktop (vía Tauri), con
+herramientas maduras y comunidad amplia.
+
+**Si el arquitecto tiene preferencia en `.claude/preferences.md`**, esa gana
+sobre el default del estudio. `technical-director` lee las preferencias al
+arrancar y, si hay un `stack favorito` declarado, lo propone como
+recomendación.
+
+**El protocolo:** `technical-director` muestra el stack propuesto en una frase
+con su razón, y pregunta una sola cosa: *"¿Sigo con este stack, o prefieres
+otro?"*. Si el arquitecto dice que sí, se anota en `production/prototype.md` y
+adelante. Si dice que no, se abre una conversación corta para elegir otro —
+nunca el proceso completo de `/choose-stack`.
+
+Solo si la app tiene targets muy particulares (juego, vídeo pesado, hardware
+específico) el `technical-director` levanta la mano para pedir más
+deliberación: el default no encaja con todo.
 
 ### Paso 2 — Construir el primer prototipo
 

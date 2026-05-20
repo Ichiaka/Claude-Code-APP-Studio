@@ -66,7 +66,7 @@ exige. Lo importante aquí es la cobertura completa y exacta:
    automatizada para no cometer errores manuales — un icono a mano en el tamaño
    equivocado es un fallo difícil de detectar a ojo.
 5. **Coloca cada asset donde su plataforma lo espera** y verifica que no falta
-   ninguno. El hook `validate-manifest.sh` puede ayudar a comprobar el manifest
+   ninguno. La utilidad `.claude/utils/validate-manifest.sh` puede ayudar a comprobar el manifest
    de la PWA.
 6. **Genera también los splash screens** si las plataformas los necesitan.
 
@@ -147,5 +147,5 @@ Un icono ambiguo sin texto obliga al usuario a adivinar.
   coherentes con el design system de `design-system-engineer`.
 - Decisiones que afectan a la marca (márgenes, recortes del icono) → se confirman
   con `ui-designer`.
-- Verificación de que no falta ningún asset → el hook `validate-manifest.sh`
+- Verificación de que no falta ningún asset → la utilidad `.claude/utils/validate-manifest.sh`
   ayuda; el resultado, a `qa-lead`.
