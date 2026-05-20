@@ -46,6 +46,7 @@ van a `.claude/agents/leads/`.
 | push | push-engineer |
 | i18n | i18n-engineer |
 | analytics | analytics-engineer |
+| ai-features | ai-features-engineer |
 
 > `backend-baas` y `backend-custom` son mutuamente excluyentes: ambos aportan un
 > `backend-lead`. Activa solo uno.

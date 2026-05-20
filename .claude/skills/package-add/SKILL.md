@@ -1,6 +1,6 @@
 ---
 name: package-add
-description: Activa un paquete opcional del estudio (backend-baas, backend-custom, payments, push, i18n, analytics). Copia sus agentes y skills al sitio correcto, registra la decisión y evita activaciones incoherentes.
+description: Activa un paquete opcional del estudio (backend-baas, backend-custom, payments, push, i18n, analytics, ai-features). Copia sus agentes y skills al sitio correcto, registra la decisión y evita activaciones incoherentes.
 ---
 
 # /package-add
@@ -20,6 +20,7 @@ duplicar, y dejando constancia de la decisión.
 | `push` | Notificaciones push | push-engineer |
 | `i18n` | Multi-idioma | i18n-engineer |
 | `analytics` | Telemetría de producto | analytics-engineer |
+| `ai-features` | IA dentro del producto (chatbots, asistentes, sugerencias) | ai-features-engineer |
 
 ## Protocolo
 
@@ -58,6 +59,8 @@ duplicar, y dejando constancia de la decisión.
    - `analytics` → ejecutar `/event-plan`.
    - `payments` → ejecutar `/payments-design`.
    - `push` → ejecutar `/push-setup`.
+   - `ai-features` → ejecutar `/ai-feature-design` para diseñar la primera
+     feature de IA.
 
 ## Ejemplo de activación
 
@@ -79,6 +82,15 @@ cp packages/backend-custom/agents/db-engineer.md    .claude/agents/specialists/p
 cp packages/backend-custom/agents/auth-engineer.md  .claude/agents/specialists/packages/
 cp -r packages/backend-custom/skills/* .claude/skills/
 ```
+
+## Siguiente paso
+
+El paso 6 del protocolo de arriba ya lo cubre por paquete: tras activarlo, indica
+al arquitecto el skill de arranque correspondiente (`/choose-baas`,
+`/i18n-setup`, `/event-plan`, `/payments-design`, `/push-setup` o
+`/ai-feature-design`). Para los paquetes sin skill de arranque dedicado, el
+arquitecto puede continuar con `/architect-feature` para diseñar la primera
+feature que use lo recién activado.
 
 ## Anti-patrones
 

@@ -161,12 +161,12 @@ CLAUDE.md                       # Configuración maestra
     leads/                      # 7 agentes Tier 2 (Sonnet)
     specialists/                # 19 agentes Tier 3 (Sonnet)
       core/  mobile/  desktop/  pwa/  design/
-  skills/                       # 22 slash commands del núcleo
+  skills/                       # 22 slash commands (del núcleo) del núcleo
   hooks/                        # 6 hooks automáticos (bash)
   rules/                        # 11 estándares con scope por path
   templates/                    # 12 plantillas (PRD, ADR, sprint, ...)
 packages/                       # Paquetes opcionales
-  backend-baas/  backend-custom/  payments/  push/  i18n/  analytics/
+  backend-baas/  backend-custom/  payments/  push/  i18n/  analytics/  ai-features/
 design/                         # PRDs, especificaciones de features (vacío)
 docs/                           # ADRs, runbooks, API contracts (vacío)
 production/                     # Sprints, retrospectivas, estado de sesión
@@ -187,7 +187,7 @@ diseño (UI, design system, iconos).
 
 **Opcionales vía paquetes** — `backend-lead`, `baas-specialist`, `api-designer`,
 `db-engineer`, `auth-engineer`, `payments-engineer`, `push-engineer`,
-`i18n-engineer`, `analytics-engineer`.
+`i18n-engineer`, `analytics-engineer`, `ai-features-engineer`.
 
 ### Skills del núcleo (22)
 
@@ -248,12 +248,16 @@ comunes:
 
 ## Roadmap
 
-Esto es un release temprano. Lo que viene:
+- [ ] Ejemplos de proyectos arrancados con el template (prototipo y completo,
+      cada uno con el modo correspondiente).
+- [ ] Más paquetes opcionales según vayan apareciendo casos de uso reales.
 
-- [ ] Paquete `claude-integration` para apps que usan la API de Anthropic en producto.
-- [ ] Paquete `desktop-only` y `mobile-only` para proyectos single-target.
-- [ ] Más plantillas (privacy policy completa, modelo de costes, etc.).
-- [ ] Ejemplos de proyectos arrancados con el template.
+Hecho recientemente:
+- ✓ Modo prototipo (`/prototype` + `/consolidate`) — el camino rápido.
+- ✓ Paquete `ai-features` para apps que integran IA en el producto final.
+- ✓ Plantillas adicionales: política de privacidad completa, términos de
+      servicio, modelo de costes, respuesta a incidentes, checklist de
+      onboarding.
 
 ## Contribuir
 
