@@ -269,12 +269,83 @@ comunes:
       cada uno con el modo correspondiente).
 - [ ] Más paquetes opcionales según vayan apareciendo casos de uso reales.
 
-Hecho recientemente:
-- ✓ Modo prototipo (`/prototype` + `/consolidate`) — el camino rápido.
-- ✓ Paquete `ai-features` para apps que integran IA en el producto final.
-- ✓ Plantillas adicionales: política de privacidad completa, términos de
-      servicio, modelo de costes, respuesta a incidentes, checklist de
-      onboarding.
+## Historial de versiones del template
+
+Las versiones siguientes documentan los hitos del propio template
+(`Claude Code App Studio`), no de las apps que se construyen con él. El
+changelog de tu app va aparte, en `CHANGELOG.md`.
+
+### v0.3 — Automatización opt-in y preferencias persistentes
+
+- **`.claude/preferences.md`** — archivo donde el arquitecto declara una vez sus
+  elecciones persistentes (idioma, stack favorito, BaaS preferido, paquetes a
+  activar por defecto, convenciones). Los agentes lo leen al iniciar sesión y
+  lo respetan sin volver a preguntar.
+- **Hooks nuevos de detección al iniciar sesión** (modo *detectar y avisar*, sin
+  ejecutar sin permiso):
+  - `load-env.sh` — avisa si falta `.env.local`.
+  - `check-deps.sh` — avisa si faltan dependencias.
+  - `dev-server.sh` — detecta el script de desarrollo y sugiere cómo arrancarlo.
+- **Automatización opt-in** desde `preferences.md`: `auto_install_deps`,
+  `auto_load_env`, `auto_start_dev_server`. Desactivadas por defecto; el
+  arquitecto las activa si quiere que el estudio ejecute esas acciones solas.
+- **Reorganización hooks ↔ utilidades**: `.claude/hooks/` contiene solo los
+  hooks que dispara Claude Code automáticamente (7); `.claude/utils/` contiene
+  las utilidades que invocan skills o el arquitecto a mano (3:
+  `validate-manifest`, `version-sync`, `build-check`).
+- **Defaults inteligentes en modo prototipo**: el stack ya no se delibera; el
+  estudio asume PWA + Capacitor + Tauri (TS + React) o la preferencia del
+  arquitecto, y solo pide confirmación.
+
+### v0.2 — Modo prototipo, paquete `ai-features` y plantillas
+
+- **Modo prototipo** (`/prototype` + `/consolidate`) — el camino rápido del
+  estudio. El primer entregable es una app que funciona; se itera en un bucle de
+  *mirar → pedir un cambio → repetir*, sin fases ni ceremonia de sprints. Cuando
+  el prototipo va en serio, `/consolidate` lo lleva al estándar del modo
+  completo.
+- **Paquete `ai-features`** — para apps que integran IA en el producto final
+  (chatbots, asistentes, sugerencias). Agnóstico de proveedor: Anthropic,
+  OpenAI, modelos locales. Incluye el agente `ai-features-engineer` y el skill
+  `/ai-feature-design`.
+- **5 plantillas adicionales** en `.claude/templates/`:
+  `privacy-policy.md` (política de privacidad completa),
+  `terms-of-service.md` (términos de servicio),
+  `cost-model.md` (modelo de costes del proyecto),
+  `incident-response.md` (protocolo de respuesta a incidentes),
+  `onboarding-checklist.md` (configuración inicial del proyecto).
+- **Statusline a prueba de fallos** — el `stage:release` ya no se dispara con
+  un `CHANGELOG.md` vacío (la causa del bug anterior); solo cuando hay una
+  versión publicada de verdad (`X.Y.Z` con fecha).
+- **Stage `prototype`** en la statusline, auto-detectado cuando existe
+  `production/prototype.md`.
+
+### v0.1 — Versión inicial
+
+- **Jerarquía de agentes en tres tiers** (basada en el patrón "studio
+  hierarchy" de [Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
+  de @Donchitos, adaptada al desarrollo de apps multiplataforma):
+  - 3 directores (Opus): `product-director`, `technical-director`,
+    `delivery-manager`.
+  - 7 leads (Sonnet): UX, frontend, mobile, desktop, QA, devops,
+    security-privacy.
+  - 19 specialists (Sonnet) agrupados en core, mobile, desktop, PWA y diseño.
+- **20 slash commands del núcleo** para discovery, design, building, release y
+  mantenimiento.
+- **6 paquetes opcionales** activables con `/package-add`: `backend-baas`,
+  `backend-custom`, `payments`, `push`, `i18n`, `analytics`.
+- **11 rules con scope por path** cubriendo UI, features, plataforma, estado,
+  API, PWA, tests, diseño, secretos, multiplataforma y accesibilidad.
+- **12 plantillas iniciales**: PRD, feature-spec, ADR, sprint-plan,
+  retrospective, risk-register, bug-report, release-notes, store-listing,
+  runbook, threat-model, privacy-notice.
+- **Statusline** que muestra modelo activo, contexto consumido y fase del
+  proyecto.
+- **Stack-agnóstico**: el estudio no impone tecnología; el stack se decide por
+  proyecto con `/choose-stack` y se registra en un ADR.
+- **Desacople total de git**: el estudio puede construir apps que usen git, pero
+  git no está integrado en su funcionamiento (sin hooks de commit, sin permisos,
+  sin git en la statusline).
 
 ## Contribuir
 
@@ -287,9 +358,13 @@ Pull requests bienvenidos. Lee [CONTRIBUTING.md](CONTRIBUTING.md) y el
 
 Para reportar bugs o proponer mejoras, usa las plantillas de issue del repo.
 
-## Historial de cambios
+## Changelog de tu app
 
-Ver [CHANGELOG.md](CHANGELOG.md).
+Para los cambios de **tu app** (no del template), usa [CHANGELOG.md](CHANGELOG.md).
+Empieza vacío a propósito; el skill `/changelog` te ayuda a redactar cada nueva
+versión.
+
+Para el historial del propio template, ver la sección [Historial de versiones del template](#historial-de-versiones-del-template) más arriba.
 
 ## Licencia
 
